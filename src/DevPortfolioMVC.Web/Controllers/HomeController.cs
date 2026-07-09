@@ -1,6 +1,8 @@
-using System.Diagnostics;
+using DevPortfolioMVC.Web.Data;
 using DevPortfolioMVC.Web.Models;
+using DevPortfolioMVC.Web.Models.ViewModels;
 using Microsoft.AspNetCore.Mvc;
+using System.Diagnostics;
 
 namespace DevPortfolioMVC.Web.Controllers
 {
@@ -15,7 +17,8 @@ namespace DevPortfolioMVC.Web.Controllers
 
         public IActionResult Index()
         {
-            return View();
+            var projects = HomeData.GetFeaturedProjects();
+            return View(projects);
         }
 
         public IActionResult Privacy()

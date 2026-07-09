@@ -1,4 +1,7 @@
-﻿@{
+﻿@using DevPortfolioMVC.Web.Models.ViewModels
+@model List<ProjectCardViewModel>
+
+@{
     ViewData["Title"] = "Inicio";
 }
 
@@ -25,6 +28,43 @@
                     <a href="#" class="btn btn-outline-light btn-lg">Contactar</a>
                 </div>
             </div>
+        </div>
+    </div>
+</section>
+<section class="featured-projects-section">
+    <div class="container">
+        <div class="section-header">
+            <span class="section-label">Portfolio</span>
+            <h2>Proyectos destacados</h2>
+            <p>
+                Algunos trabajos que representan mi formación, práctica y enfoque como desarrollador backend.
+            </p>
+        </div>
+
+        <div class="row g-4">
+            @foreach (var project in Model)
+            {
+                <div class="col-lg-4">
+                    <article class="project-card h-100">
+                        <div class="project-card-body">
+                            <h3>@project.Title</h3>
+
+                            <p>@project.Description</p>
+
+                            <div class="project-tech-list">
+                                @foreach (var tech in project.Technologies)
+                                {
+                                    <span>@tech</span>
+                                }
+                            </div>
+
+                            <a href="@project.ProjectUrl" class="project-link">
+                                Ver proyecto →
+                            </a>
+                        </div>
+                    </article>
+                </div>
+            }
         </div>
     </div>
 </section>
