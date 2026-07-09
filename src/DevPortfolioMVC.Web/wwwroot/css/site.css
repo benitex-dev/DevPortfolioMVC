@@ -165,3 +165,60 @@ body {
     .project-link:hover {
         text-decoration: underline;
     }
+.project-detail-hero {
+    padding: 5rem 0 3rem;
+}
+
+.project-back-link {
+    display: inline-block;
+    color: var(--color-muted);
+    text-decoration: none;
+    margin-bottom: 2rem;
+}
+
+    .project-back-link:hover {
+        color: var(--color-text);
+    }
+
+.project-detail-hero h1 {
+    font-size: clamp(2.8rem, 7vw, 5rem);
+    font-weight: 800;
+    margin-bottom: 1.5rem;
+}
+
+.project-detail-summary {
+    max-width: 820px;
+    color: var(--color-muted);
+    font-size: 1.2rem;
+    margin-bottom: 2rem;
+}
+
+.project-detail-content {
+    padding: 2rem 0 5rem;
+}
+
+.project-content-card {
+    max-width: 900px;
+    background: var(--color-surface);
+    border: 1px solid var(--color-border);
+    border-radius: 1rem;
+    padding: 2rem;
+}
+
+    .project-content-card h2 {
+        font-size: 1.6rem;
+        font-weight: 700;
+        margin-top: 2rem;
+        margin-bottom: 1rem;
+    }
+
+        .project-content-card h2:first-child {
+            margin-top: 0;
+        }
+
+    .project-content-card p,
+    .project-content-card li {
+        color: var(--color-muted);
+        font-size: 1.05rem;
+        line-height: 1.7;
+    }

@@ -17,7 +17,8 @@ namespace DevPortfolioMVC.Web.Data
                     "ASP.NET Web Forms",
                     "SQL Server",
                     "Bootstrap"
-                ]
+                ],
+                ProjectUrl = "/Project/Details/administrador-de-gastos"
             },
 
             new()
