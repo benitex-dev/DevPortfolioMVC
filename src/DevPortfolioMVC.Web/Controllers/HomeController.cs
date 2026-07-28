@@ -17,7 +17,7 @@ namespace DevPortfolioMVC.Web.Controllers
 
         public IActionResult Index()
         {
-            var projects = HomeData.GetFeaturedProjects();
+            var projects = ProjectData.GetFeaturedProjects();
             return View(projects);
         }
 
