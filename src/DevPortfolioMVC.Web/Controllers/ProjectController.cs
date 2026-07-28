@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using DevPortfolioMVC.Web.Data;
+using Microsoft.AspNetCore.Mvc;
 
 namespace DevPortfolioMVC.Web.Controllers
 {
@@ -11,8 +12,11 @@ namespace DevPortfolioMVC.Web.Controllers
         }
         public IActionResult Details()
         {
-            ViewData["Title"] = "Administrador de Gastos";
-            return View();
+           
+            var project = ProjectData.GetAdministradorDeGastos();
+
+            return View(project);
+            
         }
     }
 }
