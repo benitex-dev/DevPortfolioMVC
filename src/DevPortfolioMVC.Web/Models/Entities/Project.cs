@@ -13,7 +13,7 @@
         public string Problem { get; set; } = string.Empty;
 
         public string Development { get; set; } = string.Empty;
-
+        public string ImageUrl { get; set; } = string.Empty;
         public string? RepositoryUrl { get; set; }
 
         public string? DemoUrl { get; set; }

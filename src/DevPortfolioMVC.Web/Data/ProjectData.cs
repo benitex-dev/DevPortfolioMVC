@@ -11,7 +11,7 @@ namespace DevPortfolioMVC.Web.Data
                 new()
             {
                 Title = "Administrador de Gastos",
-                Description = "Proyecto Integrador de la Tecnicatura.",
+                Summary = "Proyecto Integrador de la Tecnicatura.",
                 Technologies =
                 [
                     "ASP.NET Web Forms",
@@ -24,7 +24,7 @@ namespace DevPortfolioMVC.Web.Data
             new()
             {
                 Title = "Back Office Comercial",
-                Description = "Sistema administrativo para comercios.",
+                Summary = "Sistema administrativo para comercios.",
                 Technologies =
                 [
                     "ASP.NET Core MVC",
@@ -36,7 +36,7 @@ namespace DevPortfolioMVC.Web.Data
             new()
             {
                 Title = "API REST Spring Boot",
-                Description = "API REST desarrollada con Java.",
+                Summary = "API REST desarrollada con Java.",
                 Technologies =
                 [
                     "Spring Boot",

@@ -2,6 +2,7 @@ using DevPortfolioMVC.Web.Data;
 using DevPortfolioMVC.Web.Models;
 using DevPortfolioMVC.Web.Models.ViewModels;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using System.Diagnostics;
 
 namespace DevPortfolioMVC.Web.Controllers
@@ -9,15 +10,28 @@ namespace DevPortfolioMVC.Web.Controllers
     public class HomeController : Controller
     {
         private readonly ILogger<HomeController> _logger;
+        private readonly ApplicationDbContext _context;
 
-        public HomeController(ILogger<HomeController> logger)
+        public HomeController(ILogger<HomeController> logger, ApplicationDbContext context)
         {
             _logger = logger;
+            _context = context;
         }
 
-        public IActionResult Index()
+        public async Task<IActionResult> Index()
         {
-            var projects = ProjectData.GetFeaturedProjects();
+            var projects = await _context.Projects
+                .AsNoTracking()
+                .Where(project => project.IsFeatured)
+                 .Select(project => new ProjectCardViewModel
+                 {
+                     
+                     Title = project.Title,
+                     Summary = project.Summary,
+                     ImageUrl = project.ImageUrl
+                 })
+        .ToListAsync();
+
             return View(projects);
         }
 
