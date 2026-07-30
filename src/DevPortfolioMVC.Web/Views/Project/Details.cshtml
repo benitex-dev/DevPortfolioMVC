@@ -1,13 +1,15 @@
 ﻿@using DevPortfolioMVC.Web.Models.ViewModels
+@model ProjectDetailViewModel
 @{
     ViewData["Title"] = Model.Title;
+    ViewData["Description"] = Model.Summary;
+    var galleryImages = Model.GalleryImages.ToList();
 }
-@model ProjectDetailViewModel
 
 <section class="project-detail-hero">
     <div class="container">
-        <a asp-controller="Home" asp-action="Index" class="project-back-link">
-            ← Volver al inicio
+        <a asp-controller="Project" asp-action="Index" class="project-back-link">
+            ← Volver a proyectos
         </a>
 
         <span class="section-label">@Model.Category</span>
@@ -18,14 +20,88 @@
             @Model.Summary
         </p>
 
-        <div class="project-tech-list">
-            @foreach (var technology in Model.Technologies)
-            {
-                <span>@technology</span>
-            }
-        </div>
+        @if (Model.Technologies.Count > 0)
+        {
+            <div class="project-tech-list" aria-label="Tecnologías utilizadas">
+                @foreach (var technology in Model.Technologies)
+                {
+                    <span>@technology</span>
+                }
+            </div>
+        }
+
+        @if (Model.RepositoryUrl is not null || Model.DemoUrl is not null)
+        {
+            <div class="project-detail-actions">
+                @if (Model.RepositoryUrl is not null)
+                {
+                    <a href="@Model.RepositoryUrl"
+                       class="btn btn-outline-light"
+                       target="_blank"
+                       rel="noopener noreferrer">
+                        Ver repositorio
+                    </a>
+                }
+
+                @if (Model.DemoUrl is not null)
+                {
+                    <a href="@Model.DemoUrl"
+                       class="btn btn-primary"
+                       target="_blank"
+                       rel="noopener noreferrer">
+                        Ver demo
+                    </a>
+                }
+            </div>
+        }
+
+        @if (Model.CoverImage is not null)
+        {
+            <figure class="project-cover">
+                <img src="@Model.CoverImage.Url"
+                     alt="@Model.CoverImage.AltText"
+                     decoding="async"
+                     fetchpriority="high" />
+                <figcaption>@Model.CoverImage.Caption</figcaption>
+            </figure>
+        }
     </div>
 </section>
+
+@if (galleryImages.Count > 0)
+{
+    <section class="project-gallery-section" aria-labelledby="project-gallery-title">
+        <div class="container">
+            <div class="section-header">
+                <span class="section-label">Recorrido visual</span>
+                <h2 id="project-gallery-title">Galería del proyecto</h2>
+                <p>
+                    Capturas y diagramas que muestran funcionalidades y decisiones técnicas del proyecto.
+                </p>
+            </div>
+
+            <div class="row g-4">
+                @foreach (var image in galleryImages)
+                {
+                    <div class="col-lg-6">
+                        <figure class="project-gallery-item h-100">
+                            <a href="@image.Url"
+                               target="_blank"
+                               rel="noopener noreferrer"
+                               aria-label="Abrir captura completa: @image.Caption">
+                                <img src="@image.Url"
+                                     alt="@image.AltText"
+                                     loading="lazy"
+                                     decoding="async" />
+                            </a>
+                            <figcaption>@image.Caption</figcaption>
+                        </figure>
+                    </div>
+                }
+            </div>
+        </div>
+    </section>
+}
 
 <section class="project-detail-content">
     <div class="container">
@@ -40,21 +116,27 @@
                 @Model.Development
             </p>
 
-            <h2>Lo que aprendí</h2>
-            <ul>
-                @foreach (var learning in Model.Learnings)
-                {
-                    <li>@learning</li>
-                }
-            </ul>
+            @if (Model.Learnings.Count > 0)
+            {
+                <h2>Lo que aprendí</h2>
+                <ul>
+                    @foreach (var learning in Model.Learnings)
+                    {
+                        <li>@learning</li>
+                    }
+                </ul>
+            }
 
-            <h2>Próximas mejoras</h2>
-            <ul>
-                @foreach (var improvement in Model.FutureImprovements)
-                {
-                    <li>@improvement</li>
-                }
-            </ul>
+            @if (Model.FutureImprovements.Count > 0)
+            {
+                <h2>Próximas mejoras</h2>
+                <ul>
+                    @foreach (var improvement in Model.FutureImprovements)
+                    {
+                        <li>@improvement</li>
+                    }
+                </ul>
+            }
         </article>
     </div>
 </section>

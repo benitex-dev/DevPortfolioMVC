@@ -1,0 +1,15 @@
+.git
+.github
+.vs
+.idea
+**/bin
+**/obj
+output
+tmp
+meeting-notes
+*.user
+*.suo
+*.log
+.env
+.env.*
+!.env.example

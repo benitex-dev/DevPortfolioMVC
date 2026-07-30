@@ -17,5 +17,17 @@
         public List<string> Learnings { get; set; } = [];
 
         public List<string> FutureImprovements { get; set; } = [];
+
+        public string? RepositoryUrl { get; set; }
+
+        public string? DemoUrl { get; set; }
+
+        public List<ProjectImageViewModel> Images { get; set; } = [];
+
+        public ProjectImageViewModel? CoverImage =>
+            Images.FirstOrDefault(image => image.IsCover);
+
+        public IEnumerable<ProjectImageViewModel> GalleryImages =>
+            Images.Where(image => !image.IsCover);
     }
 }

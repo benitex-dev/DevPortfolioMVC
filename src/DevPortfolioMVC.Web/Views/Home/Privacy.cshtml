@@ -1,6 +1,24 @@
-﻿@{
-    ViewData["Title"] = "Privacy Policy";
+@{
+    ViewData["Title"] = "Privacidad";
+    ViewData["Description"] = "Información sobre privacidad y tratamiento de datos en el portfolio de Ezequiel Benítez.";
 }
-<h1>@ViewData["Title"]</h1>
 
-<p>Use this page to detail your site's privacy policy.</p>
+<section class="utility-page-section">
+    <div class="container">
+        <article class="utility-page-card">
+            <span class="section-label">Información</span>
+            <h1>Privacidad</h1>
+            <p>
+                Este portfolio no solicita registros ni almacena información personal
+                mediante formularios propios.
+            </p>
+            <p>
+                Los enlaces de contacto abren servicios externos, como correo electrónico,
+                GitHub y LinkedIn, que aplican sus propias políticas de privacidad.
+            </p>
+            <a asp-controller="Home" asp-action="Index" class="project-back-link mb-0">
+                ← Volver al inicio
+            </a>
+        </article>
+    </div>
+</section>

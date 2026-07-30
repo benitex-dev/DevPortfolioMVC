@@ -9,6 +9,16 @@ obj/
 # Logs
 *.log
 
+# Environment and local configuration
+.env
+.env.*
+!.env.example
+appsettings.Local.json
+
+# Generated artifacts
+output/
+tmp/
+
 # User files
 *.user
 *.suo

@@ -1,0 +1,43 @@
+@model DevPortfolioMVC.Web.Models.ViewModels.ProjectCardViewModel
+
+<article class="project-card h-100">
+    @if (!string.IsNullOrWhiteSpace(Model.ImageUrl))
+    {
+        <a asp-controller="Project"
+           asp-action="Details"
+           asp-route-id="@Model.Id"
+           class="project-card-image-link"
+           data-project-image-container
+           aria-label="Ver detalles de @Model.Title">
+            <img src="@Model.ImageUrl"
+                 alt="@Model.ImageAltText"
+                 class="project-card-image"
+                 data-project-image
+                 loading="lazy"
+                 decoding="async" />
+        </a>
+    }
+
+    <div class="project-card-body">
+        <h3>@Model.Title</h3>
+
+        <p>@Model.Summary</p>
+
+        @if (Model.Technologies.Count > 0)
+        {
+            <div class="project-tech-list" aria-label="Tecnologías utilizadas">
+                @foreach (var technology in Model.Technologies)
+                {
+                    <span>@technology</span>
+                }
+            </div>
+        }
+
+        <a asp-controller="Project"
+           asp-action="Details"
+           asp-route-id="@Model.Id"
+           class="project-link">
+            Ver proyecto →
+        </a>
+    </div>
+</article>

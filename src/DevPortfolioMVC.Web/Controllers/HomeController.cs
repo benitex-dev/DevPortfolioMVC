@@ -23,14 +23,28 @@ namespace DevPortfolioMVC.Web.Controllers
             var projects = await _context.Projects
                 .AsNoTracking()
                 .Where(project => project.IsFeatured)
-                 .Select(project => new ProjectCardViewModel
-                 {
-                     
-                     Title = project.Title,
-                     Summary = project.Summary,
-                     ImageUrl = project.ImageUrl
-                 })
-        .ToListAsync();
+                .OrderBy(project => project.Title)
+                .Select(project => new ProjectCardViewModel
+                {
+                    Id = project.Id,
+                    Title = project.Title,
+                    Summary = project.Summary,
+                    ImageUrl = project.Images
+                        .OrderByDescending(image => image.IsCover)
+                        .ThenBy(image => image.SortOrder)
+                        .Select(image => image.Url)
+                        .FirstOrDefault() ?? project.ImageUrl,
+                    ImageAltText = project.Images
+                        .OrderByDescending(image => image.IsCover)
+                        .ThenBy(image => image.SortOrder)
+                        .Select(image => image.AltText)
+                        .FirstOrDefault() ?? project.Title,
+                    Technologies = project.Technologies
+                        .OrderBy(technology => technology.Name)
+                        .Select(technology => technology.Name)
+                        .ToList()
+                })
+                .ToListAsync();
 
             return View(projects);
         }

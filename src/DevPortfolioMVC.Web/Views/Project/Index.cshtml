@@ -1,0 +1,38 @@
+@model List<DevPortfolioMVC.Web.Models.ViewModels.ProjectCardViewModel>
+
+@{
+    ViewData["Title"] = "Proyectos";
+    ViewData["Description"] = "Proyectos backend de Ezequiel Benítez desarrollados con C#, .NET, Java, Spring Boot, PostgreSQL y SQL Server.";
+}
+
+<section class="projects-index-section">
+    <div class="container">
+        <div class="section-header">
+            <span class="section-label">Portfolio</span>
+            <h1>Proyectos</h1>
+            <p>
+                Aplicaciones en las que documento el problema, la implementación
+                y los aprendizajes obtenidos.
+            </p>
+        </div>
+
+        @if (Model.Count == 0)
+        {
+            <div class="empty-state">
+                <h2>Los proyectos están en preparación</h2>
+                <p class="mb-0">Pronto vas a poder conocerlos en detalle.</p>
+            </div>
+        }
+        else
+        {
+            <div class="row g-4">
+                @foreach (var project in Model)
+                {
+                    <div class="col-md-6 col-lg-4">
+                        <partial name="_ProjectCard" model="project" />
+                    </div>
+                }
+            </div>
+        }
+    </div>
+</section>

@@ -1,37 +1,106 @@
 ﻿@using DevPortfolioMVC.Web.Models.ViewModels
+@using DevPortfolioMVC.Web.Models.Configuration
+@using Microsoft.Extensions.Options
 @model List<ProjectCardViewModel>
+@inject IOptions<PortfolioOptions> PortfolioConfiguration
 
 @{
     ViewData["Title"] = "Inicio";
+    ViewData["Description"] = "Portfolio de Ezequiel Benítez, desarrollador backend especializado en C#, .NET, Java, Spring Boot y bases de datos relacionales.";
+    var portfolio = PortfolioConfiguration.Value;
 }
 
 <section class="hero-section">
     <div class="container">
         <div class="row align-items-center min-vh-75">
             <div class="col-lg-8">
-                <span class="hero-badge">Backend Developer</span>
+                <span class="hero-badge">Backend Developer · Técnico Universitario en Programación</span>
 
                 <h1 class="hero-title">
                     Ezequiel Benítez
                 </h1>
 
                 <p class="hero-subtitle">
-                    Desarrollo aplicaciones backend con ASP.NET Core, C#, Java, Spring Boot y SQL Server.
+                    Construyo APIs y aplicaciones web con C#, .NET, Java, Spring Boot y bases de datos relacionales.
                 </p>
 
                 <p class="hero-description">
-                    Este portfolio reúne proyectos reales, decisiones técnicas y aprendizajes construidos durante mi formación y práctica profesional.
+                    Me enfoco en modelar dominios reales y convertir requerimientos en soluciones seguras, documentadas y preparadas para ejecutarse en distintos entornos.
                 </p>
 
                 <div class="hero-actions">
-                    <a href="#" class="btn btn-primary btn-lg">Ver proyectos</a>
-                    <a href="#" class="btn btn-outline-light btn-lg">Contactar</a>
+                    <a asp-controller="Project"
+                       asp-action="Index"
+                       class="btn btn-primary btn-lg">
+                        Ver proyectos
+                    </a>
+                    <a href="mailto:@portfolio.Email"
+                       class="btn btn-outline-light btn-lg">
+                        Contactar
+                    </a>
                 </div>
             </div>
         </div>
     </div>
 </section>
-<section class="featured-projects-section">
+<section class="about-section" id="sobre-mi">
+    <div class="container">
+        <div class="row gy-5 gx-lg-5 align-items-start">
+            <div class="col-lg-5">
+                <div class="section-header mb-lg-0">
+                    <span class="section-label">Sobre mí</span>
+                    <h2>Backend con criterio de producto</h2>
+                    <p>
+                        Disfruto comprender el problema antes de programar, diseñar un modelo de datos consistente
+                        y construir soluciones que puedan explicarse, probarse y mantenerse.
+                    </p>
+                </div>
+            </div>
+
+            <div class="col-lg-7">
+                <div class="row g-3">
+                    <div class="col-md-6">
+                        <article class="profile-card h-100">
+                            <span class="profile-card-number">01</span>
+                            <h3>APIs y aplicaciones</h3>
+                            <p>
+                                Desarrollo backend con ASP.NET Core, C#, Java y Spring Boot.
+                            </p>
+                        </article>
+                    </div>
+                    <div class="col-md-6">
+                        <article class="profile-card h-100">
+                            <span class="profile-card-number">02</span>
+                            <h3>Datos y seguridad</h3>
+                            <p>
+                                Modelado relacional, SQL Server, PostgreSQL, autenticación JWT y permisos RBAC.
+                            </p>
+                        </article>
+                    </div>
+                    <div class="col-md-6">
+                        <article class="profile-card h-100">
+                            <span class="profile-card-number">03</span>
+                            <h3>Entrega técnica</h3>
+                            <p>
+                                Docker, documentación OpenAPI, Git y configuración de entornos.
+                            </p>
+                        </article>
+                    </div>
+                    <div class="col-md-6">
+                        <article class="profile-card h-100">
+                            <span class="profile-card-number">04</span>
+                            <h3>Aprendizaje continuo</h3>
+                            <p>
+                                Documento decisiones, dificultades y mejoras para seguir evolucionando cada proyecto.
+                            </p>
+                        </article>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<section class="featured-projects-section" id="proyectos-destacados">
     <div class="container">
         <div class="section-header">
             <span class="section-label">Portfolio</span>
@@ -41,30 +110,55 @@
             </p>
         </div>
 
-        <div class="row g-4">
-            @foreach (var project in Model)
-            {
-                <div class="col-lg-4">
-                    <article class="project-card h-100">
-                        <div class="project-card-body">
-                            <h3>@project.Title</h3>
+        @if (Model.Count == 0)
+        {
+            <div class="empty-state">
+                <h3>Los proyectos están en preparación</h3>
+                <p class="mb-0">Pronto vas a poder conocerlos en detalle.</p>
+            </div>
+        }
+        else
+        {
+            <div class="row g-4">
+                @foreach (var project in Model)
+                {
+                    <div class="col-md-6 col-lg-4">
+                        <partial name="_ProjectCard" model="project" />
+                    </div>
+                }
+            </div>
+        }
+    </div>
+</section>
+<section class="contact-section" id="contacto">
+    <div class="container">
+        <div class="contact-card">
+            <div>
+                <span class="section-label">Contacto</span>
+                <h2>¿Trabajamos juntos?</h2>
+                <p>
+                    Estoy disponible para oportunidades como desarrollador backend
+                    y para conversar sobre proyectos de software.
+                </p>
+            </div>
 
-                            <p>@project.Summary</p>
-
-                            <div class="project-tech-list">
-                                @foreach (var tech in project.Technologies)
-                                {
-                                    <span>@tech</span>
-                                }
-                            </div>
-
-                            <a href="@project.ProjectUrl" class="project-link">
-                                Ver proyecto →
-                            </a>
-                        </div>
-                    </article>
-                </div>
-            }
+            <div class="contact-actions">
+                <a href="mailto:@portfolio.Email" class="btn btn-primary">
+                    Enviar correo
+                </a>
+                <a href="@portfolio.LinkedInUrl"
+                   class="btn btn-outline-light"
+                   target="_blank"
+                   rel="noopener noreferrer">
+                    Ver LinkedIn
+                </a>
+                <a href="@portfolio.GitHubUrl"
+                   class="btn btn-outline-light"
+                   target="_blank"
+                   rel="noopener noreferrer">
+                    Ver GitHub
+                </a>
+            </div>
         </div>
     </div>
 </section>

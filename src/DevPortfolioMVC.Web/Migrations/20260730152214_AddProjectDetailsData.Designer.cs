@@ -2,6 +2,7 @@
 using DevPortfolioMVC.Web.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
@@ -10,9 +11,11 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace DevPortfolioMVC.Web.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20260730152214_AddProjectDetailsData")]
+    partial class AddProjectDetailsData
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -95,46 +98,6 @@ namespace DevPortfolioMVC.Web.Migrations
                     b.ToTable("ProjectFutureImprovements");
                 });
 
-            modelBuilder.Entity("DevPortfolioMVC.Web.Models.Entities.ProjectImage", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("integer");
-
-                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
-
-                    b.Property<string>("AltText")
-                        .IsRequired()
-                        .HasMaxLength(250)
-                        .HasColumnType("character varying(250)");
-
-                    b.Property<string>("Caption")
-                        .IsRequired()
-                        .HasMaxLength(250)
-                        .HasColumnType("character varying(250)");
-
-                    b.Property<bool>("IsCover")
-                        .HasColumnType("boolean");
-
-                    b.Property<int>("ProjectId")
-                        .HasColumnType("integer");
-
-                    b.Property<int>("SortOrder")
-                        .HasColumnType("integer");
-
-                    b.Property<string>("Url")
-                        .IsRequired()
-                        .HasMaxLength(500)
-                        .HasColumnType("character varying(500)");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("ProjectId", "Url")
-                        .IsUnique();
-
-                    b.ToTable("ProjectImages");
-                });
-
             modelBuilder.Entity("DevPortfolioMVC.Web.Models.Entities.ProjectLearning", b =>
                 {
                     b.Property<int>("Id")
@@ -208,17 +171,6 @@ namespace DevPortfolioMVC.Web.Migrations
                     b.Navigation("Project");
                 });
 
-            modelBuilder.Entity("DevPortfolioMVC.Web.Models.Entities.ProjectImage", b =>
-                {
-                    b.HasOne("DevPortfolioMVC.Web.Models.Entities.Project", "Project")
-                        .WithMany("Images")
-                        .HasForeignKey("ProjectId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Project");
-                });
-
             modelBuilder.Entity("DevPortfolioMVC.Web.Models.Entities.ProjectLearning", b =>
                 {
                     b.HasOne("DevPortfolioMVC.Web.Models.Entities.Project", "Project")
@@ -248,8 +200,6 @@ namespace DevPortfolioMVC.Web.Migrations
             modelBuilder.Entity("DevPortfolioMVC.Web.Models.Entities.Project", b =>
                 {
                     b.Navigation("FutureImprovements");
-
-                    b.Navigation("Images");
 
                     b.Navigation("Learnings");
                 });
